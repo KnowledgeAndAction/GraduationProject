@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="关于"
+            android:text="到站卸货"
             android:textColor="#ffffff"
             android:textSize="20sp" />
     </LinearLayout>
@@ -33,37 +33,18 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="扫描此二维码确认卸货"
+            android:textSize="18sp" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/logo_text" />
+            android:src="@drawable/icon_test_code" />
 
-        <Button
-            android:id="@+id/bt_internet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bt_in"
-            android:text="2013级软件工程"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/bt_software"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/bt_in"
-            android:text="杨硕"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
 
     </LinearLayout>
 </LinearLayout>

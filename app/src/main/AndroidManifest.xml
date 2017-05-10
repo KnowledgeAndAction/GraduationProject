@@ -37,40 +37,7 @@
         <activity android:name="com.hicc.cloud.teacher.activity.MainActivity"
             android:screenOrientation="portrait"/>
 
-        <!--请销假-->
-        <activity android:name=".teacher.activity.LeaveBackActivity"
-            android:screenOrientation="portrait"/>
-        <!--课堂签到-->
-        <activity android:name=".teacher.activity.ClassCheckActivity"
-            android:screenOrientation="portrait"/>
-        <!--学生社团-->
-        <activity android:name=".teacher.activity.StudentCommunityActivity"
-            android:screenOrientation="portrait"/>
-        <!--班级成长-->
-        <activity android:name=".teacher.activity.ClassGrowUpActivity"
-            android:screenOrientation="portrait"/>
-        <!--学生缴费-->
-        <activity android:name=".teacher.activity.PaymentActivity"
-            android:screenOrientation="portrait"/>
-        <!--宿舍成绩-->
-        <activity android:name=".teacher.activity.DormitoryScoreActivity"
-            android:screenOrientation="portrait"/>
-        <!--学生档案-->
-        <activity android:name=".teacher.activity.StudentProfileActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".teacher.activity.ClassListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".teacher.activity.StudentListActivity"
-            android:screenOrientation="portrait"/>
-        <!--学生成绩-->
-        <activity android:name=".teacher.activity.StudentMarkActivity"
-            android:screenOrientation="portrait"/>
-        <!--全部页面-->
-        <activity android:name=".teacher.activity.AllActivity"
-            android:screenOrientation="portrait"/>
         <!--联系界面下点击班级后的学生列表界面-->
-        <activity android:name=".teacher.activity.FriendStudentListActivity"
-            android:screenOrientation="portrait"/>
         <!--设置-->
         <activity android:name=".teacher.activity.SettingActivity"
             android:screenOrientation="portrait"/>
@@ -80,9 +47,18 @@
         <!--关于-->
         <activity android:name=".teacher.activity.AboutWeActivity"
             android:screenOrientation="portrait"/>
+        <!--注册-->
+        <activity android:name=".teacher.activity.RegisteredActivity"
+            android:screenOrientation="portrait"/>
+        <!--卸货-->
+        <activity android:name=".teacher.activity.StationActivity"
+            android:screenOrientation="portrait"/>
+        <!--历史记录-->
+        <activity android:name=".teacher.activity.RecordActivity"
+            android:screenOrientation="portrait"/>
 
         <!--摇一摇-->
-        <activity android:name=".teacher.activity.ShakeActivity"
+        <activity android:name=".teacher.activity.SendActivity"
             android:screenOrientation="portrait"/>
         <!--扫一扫-->
         <activity android:name=".teacher.activity.ScanActivity"
@@ -90,21 +66,6 @@
         <!--扫一扫结果页面-->
         <activity android:name=".teacher.activity.ScanResultActivity"
             android:screenOrientation="portrait"/>
-
-        <!--网上报到-->
-        <activity android:name=".teacher.activity.ColumnChartActivity"
-            android:screenOrientation="portrait"/>
-        <!--现场报到-->
-        <activity android:name=".teacher.activity.PieChartActivity"
-            android:screenOrientation="portrait"/>
-
-        <!--网络中心介绍-->
-        <activity android:name=".teacher.activity.InternetActivity"
-            android:screenOrientation="portrait"/>
-        <!--软件创业中心-->
-        <activity android:name=".teacher.activity.SoftwareActivity"
-            android:screenOrientation="portrait"/>
-
 
         <service android:name=".teacher.service.UpdataService"/>
 

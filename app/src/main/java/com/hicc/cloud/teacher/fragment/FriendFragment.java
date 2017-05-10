@@ -10,15 +10,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.hicc.cloud.R;
-import com.hicc.cloud.teacher.activity.FriendStudentListActivity;
-import com.hicc.cloud.teacher.bean.TeacherClassInfo;
 import com.hicc.cloud.teacher.utils.ConstantValue;
 import com.hicc.cloud.teacher.utils.Logs;
 import com.hicc.cloud.teacher.utils.SpUtils;
@@ -30,9 +25,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import okhttp3.Call;
 
 /**
@@ -41,7 +33,6 @@ import okhttp3.Call;
 
 public class FriendFragment extends BaseFragment {
     private static final String URL = "http://suguan.hicc.cn/hicccloudt/LoginT";
-    private List<TeacherClassInfo> classInfoList = new ArrayList<TeacherClassInfo>();
     private ListView listView;
     private LinearLayout ll_progress;
     private SwipeRefreshLayout sw_refresh; // 下拉刷新控件
@@ -51,17 +42,6 @@ public class FriendFragment extends BaseFragment {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
-                // 成功
-                case 0:
-                    sw_refresh.setRefreshing(false);
-                    MyAdapter adapter = new MyAdapter();
-                    listView.setAdapter(adapter);
-                    if(ll_progress.VISIBLE == View.VISIBLE){
-                        ll_progress.setVisibility(View.GONE);
-                    }
-                    // 成功时设置不可下拉刷新
-                    sw_refresh.setEnabled(false);
-                    break;
                 // 请求失败
                 case 1:
                     sw_refresh.setEnabled(true);
@@ -102,21 +82,6 @@ public class FriendFragment extends BaseFragment {
         // 初始设置不可下拉刷新
         sw_refresh.setEnabled(false);
         sw_refresh.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_red_light, android.R.color.holo_orange_light);
-
-        // 设置条目的点击事件
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(),FriendStudentListActivity.class);
-                intent.putExtra("classcode",classInfoList.get(position).getNid());
-                intent.putExtra("timescode",classInfoList.get(position).getGradeCode());
-                intent.putExtra("divisionCode",classInfoList.get(position).getDivisionCode());
-                intent.putExtra("professionalCode",classInfoList.get(position).getProfessionalId());
-                String title = classInfoList.get(position).getGradeCode()+"级"+classInfoList.get(position).getClassDescription();
-                intent.putExtra("title",title);
-                startActivity(intent);
-            }
-        });
 
         //下拉加载
         sw_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -174,22 +139,9 @@ public class FriendFragment extends BaseFragment {
                         JSONObject data = jsonObject.getJSONObject("data");
                         // 带班信息
                         JSONArray classInfo = data.getJSONArray("classInfo");
-                        TeacherClassInfo teacherClassInfo;
                         for (int i = 0; i < classInfo.length(); i++) {
                             JSONObject info = classInfo.getJSONObject(i);
 
-                            teacherClassInfo = new TeacherClassInfo();
-                            teacherClassInfo.setClassDescription(info.getString("ClassDescription"));
-                            teacherClassInfo.setDivisionCode(info.getInt("DivisionCode"));
-                            teacherClassInfo.setDivisionDescription(info.getString("DivisionDescription"));
-                            teacherClassInfo.setUserNo(info.getString("UserNo"));
-                            teacherClassInfo.setGradeCode(info.getInt("GradeCode"));
-                            teacherClassInfo.setNid(info.getInt("Nid"));
-                            teacherClassInfo.setProfessionalDescription(info.getString("ProfessionalDescription"));
-                            teacherClassInfo.setProfessionalId(info.getInt("ProfessionalId"));
-                            teacherClassInfo.setClassQQGroup(info.getString("ClassQQGroup"));
-
-                            classInfoList.add(teacherClassInfo);
                         }
 
                         mHandler.sendEmptyMessage(0);
@@ -232,40 +184,4 @@ public class FriendFragment extends BaseFragment {
         builder.show();
     }
 
-    class MyAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return classInfoList.size();
-        }
-
-        @Override
-        public TeacherClassInfo getItem(int position) {
-            return classInfoList.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHoulder viewHoulder;
-            if(convertView == null){
-                convertView = View.inflate(getContext(),R.layout.item_class,null);
-                viewHoulder = new ViewHoulder();
-                viewHoulder.tv_classdes = (TextView) convertView.findViewById(R.id.tv_classdes);
-                convertView.setTag(viewHoulder);
-            }
-            viewHoulder = (ViewHoulder) convertView.getTag();
-            viewHoulder.tv_classdes.setText(getItem(position).getDivisionDescription()+getItem(position).getGradeCode()+"级"+getItem(position).getClassDescription());
-
-            return convertView;
-        }
-    }
-
-    static class ViewHoulder {
-        TextView tv_classdes;
-    }
 }

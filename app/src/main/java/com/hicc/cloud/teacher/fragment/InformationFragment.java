@@ -15,6 +15,7 @@ import com.hicc.cloud.teacher.activity.AboutWeActivity;
 import com.hicc.cloud.teacher.activity.FeedBackActivity;
 import com.hicc.cloud.teacher.activity.LogInActivity;
 import com.hicc.cloud.teacher.activity.SettingActivity;
+import com.hicc.cloud.teacher.activity.StationActivity;
 import com.hicc.cloud.teacher.bean.ExitEvent;
 import com.hicc.cloud.teacher.utils.ConstantValue;
 import com.hicc.cloud.teacher.utils.SpUtils;
@@ -52,8 +53,6 @@ public class InformationFragment extends BaseFragment implements View.OnClickLis
         tvName = (TextView) view.findViewById(R.id.name);
         // 职位
         tvLevel = (TextView) view.findViewById(R.id.tv_level);
-        // 电话
-        tvPhone = (TextView) view.findViewById(R.id.phone);
         // 注销按钮
         btEsc = (Button) view.findViewById(R.id.esc);
         // 设置
@@ -62,20 +61,26 @@ public class InformationFragment extends BaseFragment implements View.OnClickLis
         LinearLayout ll_info = (LinearLayout) view.findViewById(R.id.ll_info);
         // 反馈
         LinearLayout ll_feedback = (LinearLayout) view.findViewById(R.id.ll_feedback);
+        // 到站卸货  生成二维码
+        LinearLayout ll_station = (LinearLayout) view.findViewById(R.id.ll_station);
 
         btEsc.setOnClickListener(this);
         ll_setting.setOnClickListener(this);
         ll_feedback.setOnClickListener(this);
         ll_info.setOnClickListener(this);
+        ll_station.setOnClickListener(this);
 
         tvName.setText(SpUtils.getStringSp(getContext(), ConstantValue.TEACHER_NAME,""));
         tvLevel.setText("职位："+SpUtils.getStringSp(getContext(), ConstantValue.TEACHER_LEVEL,""));
-        tvPhone.setText("电话："+SpUtils.getStringSp(getContext(),ConstantValue.TEACHER_PHONE,""));
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            // 到站
+            case R.id.ll_station:
+                startActivity(new Intent(getContext(), StationActivity.class));
+                break;
             // 设置
             case R.id.ll_setting:
                 startActivity(new Intent(getContext(),SettingActivity.class));

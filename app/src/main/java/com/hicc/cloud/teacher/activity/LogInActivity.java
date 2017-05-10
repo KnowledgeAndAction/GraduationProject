@@ -46,11 +46,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private ProgressDialog progressDialog;
     private String userName;
     private String mPwd;
+    private boolean isReg = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_bak);
         // 初始化控件
         initUI();
 
@@ -70,15 +71,25 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 // 登录
                 loginButton();
                 break;
-            // 注册按钮
+            // TODO 注册按钮
             case R.id.tv_register:
-                ToastUtli.show(getApplicationContext(),"正在开发中");
+                startActivityForResult(new Intent(this,RegisteredActivity.class),0);
                 break;
             // 找回密码按钮
             case R.id.tv_find_pwd:
                 ToastUtli.show(getApplicationContext(),"正在开发中");
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String username = data.getStringExtra("username");
+        String pwd = data.getStringExtra("pwd");
+        isReg = data.getBooleanExtra("isReg",false);
+        et_username.setText(username);
+        et_pwd.setText(pwd);
     }
 
     // 登录
@@ -94,7 +105,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_LEVEL,"测试人员");
             SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_PHONE, "1024");
             enterHome();
-        } else {
+        } else if (isReg) {
+            checkUp(userName,mPwd);
+            SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_NAME,"测试");
+            SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_LEVEL,"测试人员");
+            SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_PHONE, "1024");
+            enterHome();
+        }else {
             // 显示进度对话框
             showProgressDialog();
             // 对密码加密
