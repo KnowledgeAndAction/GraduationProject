@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class TimeLineModel implements Serializable{
     private String time;
-    private String scool;
+    private String des;
 
     public String getTime() {
         return time;
@@ -17,11 +17,11 @@ public class TimeLineModel implements Serializable{
         this.time = time;
     }
 
-    public String getScool() {
-        return scool;
+    public String getDes() {
+        return des;
     }
 
-    public void setScool(String scool) {
-        this.scool = scool;
+    public void setDes(String des) {
+        this.des = des;
     }
 }

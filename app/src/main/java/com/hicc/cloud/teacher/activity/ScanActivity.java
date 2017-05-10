@@ -9,8 +9,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.hicc.cloud.R;
 import com.hicc.cloud.teacher.utils.ToastUtli;
@@ -50,7 +50,7 @@ public class ScanActivity extends AppCompatActivity {
     public static boolean isOpen = false;
 
     private void initView() {
-        Button bt_light = (Button) findViewById(R.id.linear1);
+        LinearLayout bt_light = (LinearLayout) findViewById(R.id.ll_light);
         bt_light.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

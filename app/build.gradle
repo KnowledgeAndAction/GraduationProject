@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "com.hicc.cloud.teacher"
+        applicationId "com.shangshuo.graduation"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
@@ -64,4 +64,6 @@ dependencies {
 
     // eventbus
     compile 'org.greenrobot:eventbus:3.0.0'
+
+    compile 'com.github.vipulasri:timelineview:1.0.3'
 }

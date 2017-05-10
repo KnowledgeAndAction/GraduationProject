@@ -26,11 +26,11 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_result"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:clipToPadding="false"/>
 
 </LinearLayout>
