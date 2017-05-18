@@ -36,7 +36,7 @@ import okhttp3.Call;
  * 登录页面
  */
 
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener{
+public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String URL = "http://suguan.hicc.cn/hicccloudt/LoginT";
     private static Boolean isExit = false;
     private CheckBox cb_rember;
@@ -65,7 +65,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     // 点击事件
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             // 登录按钮
             case R.id.bt_login:
                 // 登录
@@ -73,11 +73,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 break;
             // TODO 注册按钮
             case R.id.tv_register:
-                startActivityForResult(new Intent(this,RegisteredActivity.class),0);
+                startActivityForResult(new Intent(this, RegisteredActivity.class), 0);
                 break;
             // 找回密码按钮
             case R.id.tv_find_pwd:
-                ToastUtli.show(getApplicationContext(),"正在开发中");
+                ToastUtli.show(getApplicationContext(), "正在开发中");
                 break;
         }
     }
@@ -87,7 +87,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
         String username = data.getStringExtra("username");
         String pwd = data.getStringExtra("pwd");
-        isReg = data.getBooleanExtra("isReg",false);
+        isReg = data.getBooleanExtra("isReg", false);
         et_username.setText(username);
         et_pwd.setText(pwd);
     }
@@ -97,21 +97,33 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         userName = et_username.getText().toString().trim();
         mPwd = et_pwd.getText().toString().trim();
         if (userName.equals("") || mPwd.equals("")) {
-            ToastUtli.show(getApplicationContext(),"账号或密码不能为空");
-        // TODO 接口不能用时的假数据
-        } else if (userName.equals("123") && mPwd.equals("123")){
-            checkUp(userName,mPwd);
-            SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_NAME,"测试");
-            SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_LEVEL,"测试人员");
-            SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_PHONE, "1024");
+            ToastUtli.show(getApplicationContext(), "账号或密码不能为空");
+            // TODO 接口不能用时的假数据
+        } else if (userName.equals("111") && mPwd.equals("111")) {
+            checkUp(userName, mPwd);
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_NAME, "张三");
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_LEVEL, "运输司机");
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_PHONE, "1");
+            enterHome();
+        } else if (userName.equals("222") && mPwd.equals("222")) {
+            checkUp(userName, mPwd);
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_NAME, "李四");
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_LEVEL, "快递员");
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_PHONE, "2");
+            enterHome();
+        } else if (userName.equals("333") && mPwd.equals("333")) {
+            checkUp(userName, mPwd);
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_NAME, "王五");
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_LEVEL, "普通用户");
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_PHONE, "3");
             enterHome();
         } else if (isReg) {
-            checkUp(userName,mPwd);
-            SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_NAME,"测试");
-            SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_LEVEL,"测试人员");
-            SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_PHONE, "1024");
+            checkUp(userName, mPwd);
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_NAME, "测试");
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_LEVEL, "测试人员");
+            SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_PHONE, "1024");
             enterHome();
-        }else {
+        } else {
             // 显示进度对话框
             showProgressDialog();
             // 对密码加密
@@ -134,7 +146,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                     public void onError(Call call, Exception e, int id) {
                         closeProgressDialog();
                         Logs.i(e.toString());
-                        ToastUtli.show(getApplicationContext(),"服务器繁忙，请重新登录");
+                        ToastUtli.show(getApplicationContext(), "服务器繁忙，请重新登录");
                     }
 
                     @Override
@@ -152,44 +164,44 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         try {
             JSONObject jsonObject = new JSONObject(response);
             boolean sucessed = jsonObject.getBoolean("sucessed");
-            if(sucessed) {
+            if (sucessed) {
                 Logs.i("登录成功，开始解析");
                 // 登录成功后检查是否记住密码
-                checkUp(userName,mPwd);
-                Logs.i("账号："+userName+"  密码："+mPwd);
+                checkUp(userName, mPwd);
+                Logs.i("账号：" + userName + "  密码：" + mPwd);
 
                 // TODO 保存用户信息
                 JSONObject data = jsonObject.getJSONObject("data");
                 // 姓名
-                SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_NAME, data.getString("UserName"));
+                SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_NAME, data.getString("UserName"));
                 // 职位
-                SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_LEVEL, data.getString("UserLevel"));
+                SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_LEVEL, data.getString("UserLevel"));
                 // 联系方式
-                SpUtils.putStringSp(getApplicationContext(),ConstantValue.TEACHER_PHONE, data.getString("ContactWay"));
+                SpUtils.putStringSp(getApplicationContext(), ConstantValue.TEACHER_PHONE, data.getString("ContactWay"));
 
-                SpUtils.putIntSp(getApplicationContext(),ConstantValue.USER_NO,data.getInt("UserNo"));
-                SpUtils.putIntSp(getApplicationContext(),ConstantValue.RECORD_CODE,data.getInt("RecordCode"));
-                SpUtils.putIntSp(getApplicationContext(),ConstantValue.NID,data.getInt("Nid"));
-                SpUtils.putIntSp(getApplicationContext(),ConstantValue.USER_LEVEL_CODE,data.getInt("UserLevelCode"));
+                SpUtils.putIntSp(getApplicationContext(), ConstantValue.USER_NO, data.getInt("UserNo"));
+                SpUtils.putIntSp(getApplicationContext(), ConstantValue.RECORD_CODE, data.getInt("RecordCode"));
+                SpUtils.putIntSp(getApplicationContext(), ConstantValue.NID, data.getInt("Nid"));
+                SpUtils.putIntSp(getApplicationContext(), ConstantValue.USER_LEVEL_CODE, data.getInt("UserLevelCode"));
 
                 // 关闭对话框进入主界面
-                ToastUtli.show(getApplicationContext(),"登录成功");
+                ToastUtli.show(getApplicationContext(), "登录成功");
                 closeProgressDialog();
                 enterHome();
-            }else{
+            } else {
                 closeProgressDialog();
-                ToastUtli.show(getApplicationContext(),"账号或密码错误");
+                ToastUtli.show(getApplicationContext(), "账号或密码错误");
             }
         } catch (JSONException e) {
             e.printStackTrace();
             closeProgressDialog();
-            ToastUtli.show(getApplicationContext(),"登录失败");
+            ToastUtli.show(getApplicationContext(), "登录失败");
         }
     }
 
     //检查是否已经登陆
     private void checkEnter() {
-        if (SpUtils.getBoolSp(this, ConstantValue.IS_REMBER_PWD,false)) {
+        if (SpUtils.getBoolSp(this, ConstantValue.IS_REMBER_PWD, false)) {
             // TODO 向服务器发送请求登录  获取用户数据
             enterHome();
         }
@@ -197,25 +209,25 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     //检测是否记住了密码 如果是就填充
     private void checkUpDown() {
-        if (SpUtils.getBoolSp(this, ConstantValue.IS_REMBER_PWD,false)) {
-            et_username.setText(SpUtils.getStringSp(this,ConstantValue.USER_NAME,""));
-            et_pwd.setText(SpUtils.getStringSp(this,ConstantValue.PASS_WORD,""));
-            cb_rember.setChecked(SpUtils.getBoolSp(this, ConstantValue.IS_REMBER_PWD,false));
-        }else {
-            et_username.setText(SpUtils.getStringSp(this,ConstantValue.USER_NAME,""));
+        if (SpUtils.getBoolSp(this, ConstantValue.IS_REMBER_PWD, false)) {
+            et_username.setText(SpUtils.getStringSp(this, ConstantValue.USER_NAME, ""));
+            et_pwd.setText(SpUtils.getStringSp(this, ConstantValue.PASS_WORD, ""));
+            cb_rember.setChecked(SpUtils.getBoolSp(this, ConstantValue.IS_REMBER_PWD, false));
+        } else {
+            et_username.setText(SpUtils.getStringSp(this, ConstantValue.USER_NAME, ""));
         }
     }
 
     //检查是否勾选记住密码
-    private void checkUp(String userName,String mPwd) {
+    private void checkUp(String userName, String mPwd) {
         if (cb_rember.isChecked()) {
-            SpUtils.putStringSp(this,ConstantValue.USER_NAME,userName);
-            SpUtils.putStringSp(this,ConstantValue.PASS_WORD,mPwd);
-            SpUtils.putBoolSp(this,ConstantValue.IS_REMBER_PWD,true);
+            SpUtils.putStringSp(this, ConstantValue.USER_NAME, userName);
+            SpUtils.putStringSp(this, ConstantValue.PASS_WORD, mPwd);
+            SpUtils.putBoolSp(this, ConstantValue.IS_REMBER_PWD, true);
         } else {
-            SpUtils.putStringSp(this,ConstantValue.USER_NAME,userName);
-            SpUtils.putStringSp(this,ConstantValue.PASS_WORD,mPwd);
-            SpUtils.putBoolSp(this,ConstantValue.IS_REMBER_PWD,false);
+            SpUtils.putStringSp(this, ConstantValue.USER_NAME, userName);
+            SpUtils.putStringSp(this, ConstantValue.PASS_WORD, mPwd);
+            SpUtils.putBoolSp(this, ConstantValue.IS_REMBER_PWD, false);
         }
     }
 
@@ -245,7 +257,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     //监听返回键
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             exitBy2Click();
         }
         return false;

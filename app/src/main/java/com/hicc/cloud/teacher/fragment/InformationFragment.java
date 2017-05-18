@@ -14,6 +14,7 @@ import com.hicc.cloud.R;
 import com.hicc.cloud.teacher.activity.AboutWeActivity;
 import com.hicc.cloud.teacher.activity.FeedBackActivity;
 import com.hicc.cloud.teacher.activity.LogInActivity;
+import com.hicc.cloud.teacher.activity.ScanActivity;
 import com.hicc.cloud.teacher.activity.SettingActivity;
 import com.hicc.cloud.teacher.activity.StationActivity;
 import com.hicc.cloud.teacher.bean.ExitEvent;
@@ -29,8 +30,6 @@ import org.greenrobot.eventbus.EventBus;
 public class InformationFragment extends BaseFragment implements View.OnClickListener{
     public ImageView ivPicture;
     public TextView tvName;
-    public TextView tvPosition;
-    public TextView tvPhone;
     public Button btEsc;
     private TextView tvLevel;
 
@@ -63,20 +62,45 @@ public class InformationFragment extends BaseFragment implements View.OnClickLis
         LinearLayout ll_feedback = (LinearLayout) view.findViewById(R.id.ll_feedback);
         // 到站卸货  生成二维码
         LinearLayout ll_station = (LinearLayout) view.findViewById(R.id.ll_station);
+        // 准备装车
+        LinearLayout ll_loading = (LinearLayout) view.findViewById(R.id.ll_loading);
+
+        TextView txt_send = (TextView) view.findViewById(R.id.txt_send);
+        TextView txt_take = (TextView) view.findViewById(R.id.txt_take);
+
+        ImageView iv_send = (ImageView) view.findViewById(R.id.iv_send);
+        ImageView iv_take = (ImageView) view.findViewById(R.id.iv_take);
 
         btEsc.setOnClickListener(this);
         ll_setting.setOnClickListener(this);
         ll_feedback.setOnClickListener(this);
         ll_info.setOnClickListener(this);
         ll_station.setOnClickListener(this);
+        ll_loading.setOnClickListener(this);
 
         tvName.setText(SpUtils.getStringSp(getContext(), ConstantValue.TEACHER_NAME,""));
         tvLevel.setText("职位："+SpUtils.getStringSp(getContext(), ConstantValue.TEACHER_LEVEL,""));
+
+        String type = SpUtils.getStringSp(getContext(), ConstantValue.TEACHER_PHONE,"");
+
+        if (type.equals("2")) {
+            txt_send.setText("上门取件");
+            txt_take.setText("上门派件");
+            iv_send.setImageResource(R.drawable.icon_take);
+            iv_take.setImageResource(R.drawable.icon_send);
+        } else if (type.equals("3")) {
+            ll_station.setVisibility(View.GONE);
+            ll_loading.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            // 准备装车
+            case R.id.ll_loading:
+                startActivity(new Intent(getContext(), ScanActivity.class));
+                break;
             // 到站
             case R.id.ll_station:
                 startActivity(new Intent(getContext(), StationActivity.class));
